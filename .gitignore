@@ -1,0 +1,5 @@
+node_modules/
+vendor/
+.env
+# src Solo si subiré los archios a un servidor, para control de versiones esta bien subirlo
+.DS_Store 
