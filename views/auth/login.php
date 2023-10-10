@@ -1,4 +1,4 @@
-<h1 class="nombre-pagina">Login</h1>
+<h1 class="nombre-pagina">Inicio de Sesión</h1>
 <p class="descripcion-pagina">!Nos alegra volverte a ver¡ <br>Por favor Inicia Sesión</p>
 
 <?php include_once __DIR__ . '/../templates/alertas.php'; ?>
