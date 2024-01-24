@@ -30,7 +30,8 @@ class Router
 
         // $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
         
-        $currentUrl = strtok($_SERVER['REQUEST_URI'], '?'); 
+        // $currentUrl = strtok($_SERVER['REQUEST_URI'], '?'); 
+        $currentUrl = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
         // ? detecta el querry string y solo toma el principio de la url 
         
         $method = $_SERVER['REQUEST_METHOD'];
