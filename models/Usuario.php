@@ -48,8 +48,8 @@ class Usuario extends ActiveRecord {
         if(strlen($this->password) < 6) {
             self::$alertas['error'][] = 'La contraseña debe contener al menos 6 caracteres';
         }
-        if(strlen($this->celular) > 10) {
-            self::$alertas['error'][] = 'El número es demasiado extenso';
+        if(strlen($this->celular) !== 10) {
+            self::$alertas['error'][] = 'El número de celular deben ser 10 dígitos';
         }
 
         return self::$alertas;

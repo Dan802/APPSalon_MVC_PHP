@@ -18,8 +18,8 @@
         value="<?php echo s($usuario->apellido); ?>">
     </div>
     <div class="campo">
-        <label for="celular">Teléfono</label>
-        <input type="tel" id="celular" name="celular" placeholder="Tu Teléfono"
+        <label for="celular">Celular</label>
+        <input type="tel" id="celular" name="celular" placeholder="Tu número de celular"
         value="<?php echo s($usuario->celular); ?>">
     </div>
     <div class="campo">

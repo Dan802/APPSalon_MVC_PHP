@@ -2,9 +2,11 @@
 
 namespace Controllers;
 
+use Classes\Email;
 use Model\Cita;
 use Model\CitaServicio;
 use Model\Servicio;
+use Model\Usuario;
 
 class APIController {
     
@@ -20,6 +22,17 @@ class APIController {
         // Almacena la cita y devuelve el id
        $cita = new Cita($_POST);
        $resultado_And_id = $cita->guardar();
+
+        if($resultado_And_id) {
+
+            $usuario = new Usuario();
+            $usuario = $usuario->where('id', $_POST['usuarioId']);
+
+            if($usuario) {
+                $email = new Email($usuario->email, $usuario->nombre, '', $_POST['fecha'], $_POST['hora']);
+                $email->enviarInfoCita();
+            }
+        }
 
         // Almacena la cita y el servicio
         // Almacena los servicios con el id de la cita

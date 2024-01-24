@@ -8,12 +8,16 @@ class Email {
     public $email;
     public $nombre;
     public $token;
+    public $fecha;
+    public $hora;
 
-    public function __construct($email, $nombre, $token)
+    public function __construct($email, $nombre, $token = '', $fecha = '', $hora = '')
     {   
         $this->email = $email;
         $this->nombre = $nombre;
         $this->token = $token;
+        $this->fecha = $fecha ?? '';
+        $this->hora = $hora ?? '';
     }
 
     public function enviarConfirmacion() {
@@ -99,5 +103,39 @@ class Email {
             echo 'Mailer Error: ' . $phpmailer->ErrorInfo;
             return false;
         }
+    }
+
+    public function enviarInfoCita() {
+        $phpmailer = new PHPMailer();
+        $phpmailer->isSMTP();
+        $phpmailer->SMTPAuth = true;
+
+        $phpmailer->Host = $_ENV['EMAIL_HOST'];
+        $phpmailer->Port = $_ENV['EMAIL_PORT'];
+        $phpmailer->Username = $_ENV['EMAIL_USER'];
+        $phpmailer->Password = $_ENV['EMAIL_PASS'];
+
+        $phpmailer->setFrom($_ENV['EMAIL_USER'], 'Cita Perruna');
+        $phpmailer->addAddress($this->email, $this->nombre);
+        $phpmailer->Subject = 'Nueva Cita Programada';
+
+        // Set HTML
+        $phpmailer->isHTML(TRUE);
+        $phpmailer->CharSet = 'UTF-8';
+
+        $contenido = "<html>";
+        $contenido .= "<p><strong>¡Hola! ¿Que tal ". $this->nombre . "?</strong>";
+        $contenido .= "<br>Recientemente has agendado una cita con Cita Perruna, aquí te contamos todos los detalles.</p>";
+        $contenido .= "<p>Fecha asignada: " . $this->fecha .  " </p>";
+        $contenido .= "<p>Hora asignada: " . $this->hora .  " </p>";
+        $contenido .= "<p><br>Nos vemos pronto, feliz día <3</p>";
+        $contenido .= "</html>";
+        
+        $phpmailer->Body = $contenido;
+
+        $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $phpmailer->AltBody = "Fecha asignada: " . $this->fecha . ".Hora asignada: " . $this->hora;
+
+        $phpmailer->send();
     }
 }

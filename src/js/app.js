@@ -253,10 +253,10 @@ function seleccionarHora() {
         const horaCita = e.target.value; // Retorna la hora en formato 24:00
         const hora = horaCita.split(":")[0]; 
 
-        if(hora < 10 || hora > 18) {
+        if(hora < 9 || hora > 18) {
             // horas no validas 
             e.target.value = '';
-            mostrarAlerta('Hora no válida', 'error', '.formulario');
+            mostrarAlerta('El horario es de 9:00AM a 6:00PM', 'error', '.formulario');
         } else {
             cita.hora = horaCita;
         }
@@ -410,7 +410,7 @@ async function reservarCita() {
             Swal.fire({
                 icon: 'success',
                 title: 'Cita Creada',
-                text: 'Tu cita fue creada correctamente',
+                text: 'Tu cita fue creada correctamente, te enviaremos un correo con toda la info',
                 button: 'OK'
             })
                 .then( () => {  //Callback para recargar la página
@@ -423,7 +423,7 @@ async function reservarCita() {
 
         Swal.fire({
             icon: 'error',
-            title: "Cita Creadan't",
+            title: "Error",
             text: 'Hubo un error al crear la cita',
             button: 'OK'
         })
